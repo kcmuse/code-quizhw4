@@ -17,7 +17,7 @@ h1 {
     color: darkblue;
     
 }
-.time {
+.timer {
     border: 2px solid red;
     margin-left: 80%;
 }
@@ -50,7 +50,14 @@ h1 {
     border-radius: 5px;
     width: fit-content;
     margin: 10px 10px 10px 10px;
-
+    display: block;
+}
+.correct {
+    color: rgba(0, 0, 0, .5);
+    border-top: 2px  rgba(0, 0, 0, .5);
+}
+.answer-btn:hover{
+    opacity: 80%;
 }
 
 /* GIVEN I am taking a code quiz

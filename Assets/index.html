@@ -11,7 +11,7 @@
 <body>
     <header>
         <p class= "highscores">Highscores</p>
-        <div class="time">Time: 75</div>
+        <div class="timer">Time: 75</div>
     </header>
     <main>
         <div class="container start" id="quiz">
@@ -20,21 +20,22 @@
                <p>your score at the end will be equal to the amount of time left! Good Luck!!!</p>
             <button class="start-btn">Start!</button>
         </div>
-        <div class="container answerButton" id="answers">
-            <div class="choice0 answer-btn"></div>
-            <div class="choice1 answer-btn"></div>
-            <div class="choice2 answer-btn"></div>
-            <div class="choice3 answer-btn"></div>
+        <div class="container answerButtons" id="answers">
+            <button class="option0 answer-btn"></button>
+            <button class="option1 answer-btn"></button>
+            <button class="option2 answer-btn"></button>
+            <button class="option3 answer-btn"></button>
         </div>
-        <div class="container">
-            <form>
+        <div class="correct"></div>
+        <div class="container saveScore">
+            <form class="container" style="display: none;">
                 <h1>Save your score!</h1>
-                <label for="initial">Intials:</label>
+                <label for="initials">Intials:</label>
                 <input type="text" class="initials">
                 <button class="submit">Enter</button>
             </form>
         </div>
-        <script src="/Assets/javascript/script.js"></script>
+        <script src="./javascript/script.js"></script>
     </main>
     <!-- GIVEN I am taking a code quiz
     WHEN I click the start button 

@@ -13,59 +13,63 @@
 // WHEN the game is over
 // THEN I can save my initials and my score
 // TODO: score tracker, where players input initials and the score is tracked
-var highscores = document.querySelector(".highscores");
-var time = document.querySelector(".time");
+var quizBox = document.getElementById("quiz");
+var highScores = document.querySelector(".highscores");
+var timer = document.querySelector(".timer");
 var startBtn =  document.querySelector(".start-btn");
-var quizBox = document.getElementById("quiz")
-var answerButton = document.querySelector(".answerButton");
-var timeLeft = 75;
+var answerButton = document.querySelector(".answerButtons");
+var saveScore = document.querySelector(".saveScore");
 var score = 0;
 var index = 0;
 var scores = [];
 var saved = [];
-
-// creating the timer to count down
-function timer() {
-    var timerInterval = setInterval(function() {
-      timeLeft--;
-      time.textContent = "Time: " + timeLeft;
-    }, 1000);
+var timeInterval;
+var timeLeft;
+// Timer to start the countdown once the start button is hit
+function theTimer() {
+        timeInterval = setInterval(function () {
+            timeLeft--;
+            timer.textContent = "Time: " + timeLeft;
+            if (timeLeft <= 0 || index === theQuestions.length) {
+                clearInterval(timeInterval);
+                showScore();
+        } 
+    }, 1000); 
   }
   // creating the function to start the quiz
   function startQuiz(){
-    startBtn.addEventListener("click", function() {
-        if (timeLeft <75){
-            event.preventDefault();
-        }else{
-            timer();
-            questions();
-        }
-    });
+    timeLeft = 75;
+    theTimer();
+    questions();
   };
+
+  startBtn.addEventListener("click", startQuiz);
+
+  function showScore(){
+        quizBox.innerHTML = "<h1> Your Score was " + score + "</h1>";
+
+  }  
   // function to generate the questions and answers from the questions array
   function questions() {
     quizBox.innerHTML = "<h1>" + theQuestions[index].question + "</h1>";
-    quizBox.style.textAlign = "center";
     for (var i = 0; i < theQuestions[index].options.length; i++) {
-        document.querySelector(".choice" + i).innerHTML = 
-        "<button type='button' class='answer-btn'>" + theQuestions[index].options[i] + "</button>";
+        document.querySelector(".option" + i).innerHTML = theQuestions[index].options[i];
     }
 };
 
 answerButton.addEventListener("click", function(event) {
     event.preventDefault();
-
-    if (event.target.textContent === theQuestions[index].answer){
-        timeLeft = timeLeft -10;
-        console.log(answerButton);
+    event.stopPropagation();
+    let correct = document.querySelector(".correct");
+    if (event.target.textContent == theQuestions[index].answer){
+    } else{
+        timeLeft = timeLeft - 10;
     }
-
     if (index < theQuestions.length -1){
         index ++;
         questions();
-    }else {
+    } else {
         score = timeLeft;
-
     }
 })
 
@@ -87,29 +91,29 @@ answerButton.addEventListener("click", function(event) {
             "1. Cascading Style Sheets",
             "2. Crazy Sharks Swin",
             "3. Cascading Smart Styles",
-            "4. Carousel Spin Slowly"
+            "4. Carousels Spin Slowly"
         ],
         answer: "1. Cascading Style Sheets"
     },
     {
         question: "Whats the best location to link Javascript files in HTML?",
         options: [
-            "1. At the top, within the <head>",
-            "2. At the bottom of the <body>",
-            "3. At the top of the <body>",
-            "4. Outside the <body>"
+            "1. At the top, within the head",
+            "2. At the bottom of the body",
+            "3. At the top of the body",
+            "4. In the CSS file"
         ],
-        answer: "2. At the bottom of the <body>"
+        answer: "2. At the bottom of the body"
     },
     {
         question: "Where do you link your style.css files within the HTML?",
         options: [
-            "1. At the bottom of the <body>",
-            "2. Outside the <body>",
-            "3. At the top, within the <head>",
-            "4. At the top of the <body>"
+            "1. At the bottom of the body",
+            "2. In the Javascript file",
+            "3. At the top, within the head",
+            "4. At the top of the body"
         ],
-        answer: "3. At the top, in the <head>"
+        answer: "3. At the top, within the head"
     },
     {
         question: "What can be stored in an array?",
@@ -122,6 +126,5 @@ answerButton.addEventListener("click", function(event) {
         answer: "4. All of the above"
     }
 ]
-  startQuiz();
 
 
