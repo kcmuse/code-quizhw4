@@ -3,6 +3,55 @@
     padding: 0;
     box-sizing: border-box;
 }
+body {
+    background-image: url("stardust.jpeg");
+}
+header {
+    border: 2px solid red;
+    display: flex;
+    color: darkblue;
+    font-size: 25px;
+}
+h1 {
+    font-size: 200%;
+    color: darkblue;
+    
+}
+.time {
+    border: 2px solid red;
+    margin-left: 80%;
+}
+.highscores {
+    border: 2px solid red;
+    margin-left: 5px;
+}
+.container{
+    border: 2px solid red;
+    text-align: center;
+}
+.title p {
+    color: darkblue;
+    font-size:20px;
+
+}
+.start-btn {
+    color: black;
+    font-size: 25px;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.25);
+    border: 2px solid black;
+    border-radius: 5px;
+}
+.answer-btn {
+    color: white;
+    background: darkblue;
+    font-size: 20px;
+    border: white;
+    border-radius: 5px;
+    width: fit-content;
+    margin: 10px 10px 10px 10px;
+
+}
 
 /* GIVEN I am taking a code quiz
 WHEN I click the start button
