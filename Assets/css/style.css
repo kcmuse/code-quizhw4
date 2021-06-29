@@ -20,27 +20,28 @@ h1 {
 .timer {
     /* border: 2px solid red; */
     margin-left: 80%;
+    cursor: pointer;
+    text-decoration: underline;
 }
 .highscores {
     /* border: 2px solid red; */
     margin-left: 5px;
+    cursor: pointer;
+    text-decoration: underline;
 }
 .container{
     /* border: 2px solid red; */
     text-align: center;
 }
-.title p {
+.start p {
     color: darkblue;
     font-size:20px;
 
 }
 .start {
-    /* background-color: rgba(0, 0, 0, .5); */
     width: fit-content;
     margin: auto;
-    /* border: 2px solid black; */
     border-radius: 20px;
-    /* color: white; */
 }
 .start-btn {
     color: black;
@@ -49,6 +50,13 @@ h1 {
     background: rgba(255, 255, 255, 0.25);
     border: 2px solid black;
     border-radius: 5px;
+    padding: 5px;
+
+}
+.start-btn:hover {
+    font-size: 50px;
+    font-weight: bolder;
+
 }
 .answerButtons {
     width: fit-content;
@@ -64,13 +72,12 @@ h1 {
     margin: 10px 10px 10px 10px;
     display: block;
 }
-.correct {
-    color: rgba(0, 0, 0, .5);
-    border-top: 2px  rgba(0, 0, 0, .5);
-}
+
 .answer-btn:hover{
     opacity: 70%;
+    background-color: gold;
     cursor: grab;
+    color: black;
 }
 .saveScore{
     display: none;

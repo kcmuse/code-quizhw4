@@ -1,18 +1,3 @@
-// GIVEN I am taking a code quiz
-// WHEN I click the start button
-// THEN a timer starts and I am presented with a question
-// TODO: Timer to start upper right hand corner of the page counting down
-// WHEN I answer a question
-// THEN I am presented with another question
-// TODO: when a question is answered another question needs to pop up
-// WHEN I answer a question incorrectly
-// THEN time is subtracted from the clock
-// TODO: remove time for incorret answers
-// WHEN all questions are answered or the timer reaches 0
-// THEN the game is over
-// WHEN the game is over
-// THEN I can save my initials and my score
-// TODO: score tracker, where players input initials and the score is tracked
 var quizBox = document.getElementById("quiz");
 var highScores = document.querySelector(".highscores");
 var timer = document.querySelector(".timer");
@@ -21,7 +6,6 @@ var answerButton = document.querySelector(".answerButtons");
 var saveScore = document.querySelector(".saveScore");
 var submit = document.querySelector(`.submit`);
 var highScoreBox = document.querySelector(`.highScore`);
-var tryAgain = document.querySelector(`.tryagain`);
 var initials = document.getElementById('initials');
 var score = 0;
 var index = 0;
@@ -36,7 +20,6 @@ function theTimer() {
         timer.textContent = "Time: " + timeLeft;
         if (timeLeft <= 0 || index === theQuestions.length) {
             clearInterval(timeInterval);
-            showScore();
         }
     }, 1000);
 }
@@ -47,7 +30,7 @@ function startQuiz() {
     theTimer();
     questions();
 };
-
+// event listener for the start button
 startBtn.addEventListener("click", startQuiz);
 // This will show the players score once the final question is answered or the time reaches 0
 function showScore() {
@@ -58,16 +41,16 @@ function showScore() {
     if(saveScore.style.display !== `none`){
         saveScore.style.display = `block`;
     }
-    var savedInitials = initials.value.trim();
-    var userScore = {
-        score: score,
-        user: savedInitials
-    }
-    window.localStorage.setItem(`scores`, JSON.stringify(userScore));
+    // var savedInitials = initials.value.trim();
+    // var userScore = {
+    //     score: score,
+    //     user: savedInitials
+    // }
+    // window.localStorage.setItem(`scores`, JSON.stringify(userScore));
 
-    var allScores = JSON.parse(window.localStorage.getItem(`scores`))|| [];
-    console.log(allScores)
-    allScores.push(saved)
+    // var allScores = JSON.parse(window.localStorage.getItem(`scores`))|| [];
+    // console.log(allScores)
+    // allScores.push(saved)
 
     // for (var i = 0; i < allScores.length; i++){
     //     var li = document.createElement("li")
@@ -77,26 +60,55 @@ function showScore() {
     // }
 
 //    console.log(allScores)
-
-
-
 } 
+// event listener to open the highscores of the player clicks that in the upper right corder
+highScores.addEventListener(`click`, function(event){
+    if(quizBox.style.display !== `none`){
+        quizBox.style.display = `none`;
+    }
+    if(highScoreBox.style.display !== `none`){
+        highScoreBox.style.display = `block`;
+    }
+
+})
+
+function savedScores() {
+    var savedInitials = initials.value.trim();
+    var userScore = {
+        score: score,
+        user: savedInitials
+    }
+    window.localStorage.setItem(`scores`, JSON.stringify(userScore));
+
+    var allScores = JSON.parse(window.localStorage.getItem(`scores`))|| [];
+    console.log(allScores);
+    // allScores.push();
+
+    for (var i = 0; i < allScores.length; i++){
+        var li = document.createElement("li")
+        li.textContent = allScores.userScore.user + ":" + allScores.userScore.score
+        document.getElementsById("savedscores").append(li)
+        console.log(li)
+    }
+}
 
 submit.addEventListener(`click`, function(event){
     event.preventDefault();
-    quizBox.innerHTML = ``;
+    // quizBox.innerHTML = ``;
     if(saveScore.style.display !== `none`){
         saveScore.style.display = `none`;
     }
     if(highScoreBox.style.display !== `none`){
         highScoreBox.style.display = `block`;
     }
-    // showScore();
+
+    savedScores();
+
 })
 
 
 
-// function to generate the questions and answers from the questions array
+// function to generate the questions and answers from theQuestions array
 function questions() {
     quizBox.innerHTML = "<h1>" + theQuestions[index].question + "</h1>";
     for (var i = 0; i < theQuestions[index].options.length; i++) {
@@ -104,7 +116,7 @@ function questions() {
         document.querySelector(".option" + i).style.padding = `5px`;
     }
 };
-
+// click function for the answer, each time this is hit it will move onto the next question.
 answerButton.addEventListener("click", function (event) {
     event.preventDefault();
     event.stopPropagation();
@@ -118,13 +130,12 @@ answerButton.addEventListener("click", function (event) {
             questions();
         } else {
             score = timeLeft;
-            showScore();
             clearInterval(timeInterval);
+            showScore();
         }
     }
 })
-
-
+// Variable holding all of the questions recalled in the the questions function.
 var theQuestions = [
     {
         question: "What does HTML stand for",
