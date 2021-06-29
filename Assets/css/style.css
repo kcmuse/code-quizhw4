@@ -7,7 +7,7 @@ body {
     background-image: url("stardust.jpeg");
 }
 header {
-    border: 2px solid red;
+    /* border: 2px solid red; */
     display: flex;
     color: darkblue;
     font-size: 25px;
@@ -18,21 +18,29 @@ h1 {
     
 }
 .timer {
-    border: 2px solid red;
+    /* border: 2px solid red; */
     margin-left: 80%;
 }
 .highscores {
-    border: 2px solid red;
+    /* border: 2px solid red; */
     margin-left: 5px;
 }
 .container{
-    border: 2px solid red;
+    /* border: 2px solid red; */
     text-align: center;
 }
 .title p {
     color: darkblue;
     font-size:20px;
 
+}
+.start {
+    /* background-color: rgba(0, 0, 0, .5); */
+    width: fit-content;
+    margin: auto;
+    /* border: 2px solid black; */
+    border-radius: 20px;
+    /* color: white; */
 }
 .start-btn {
     color: black;
@@ -41,6 +49,10 @@ h1 {
     background: rgba(255, 255, 255, 0.25);
     border: 2px solid black;
     border-radius: 5px;
+}
+.answerButtons {
+    width: fit-content;
+    margin: auto;
 }
 .answer-btn {
     color: white;
@@ -57,8 +69,28 @@ h1 {
     border-top: 2px  rgba(0, 0, 0, .5);
 }
 .answer-btn:hover{
-    opacity: 80%;
+    opacity: 70%;
+    cursor: grab;
 }
+.saveScore{
+    display: none;
+}
+.saveScore h1{
+    padding: 10px;
+    margin-bottom: 5px;
+    text-decoration: underline;
+}
+.saveScore form{
+    padding: 10px;
+    color: darkblue;
+    font-size: 25px;
+    font-weight: bold;
+
+}
+.highScore {
+    display: none;
+}
+
 
 /* GIVEN I am taking a code quiz
 WHEN I click the start button

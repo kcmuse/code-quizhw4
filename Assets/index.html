@@ -26,16 +26,19 @@
             <button class="option2 answer-btn"></button>
             <button class="option3 answer-btn"></button>
         </div>
-        <div class="correct"></div>
         <div class="container saveScore">
-            <form class="container" style="display: none;">
+            <form class="container">
                 <h1>Save your score!</h1>
-                <label for="initials">Intials:</label>
-                <input type="text" class="initials">
-                <button class="submit">Enter</button>
+                <label for="initials">Intials:</label> 
+                <input type="text" id="initials" placeholder="Enter intials.....">
+                <button class="submit">Save Score</button>
             </form>
         </div>
-        <script src="./javascript/script.js"></script>
+        <div class="container highScore">
+            <h1>High Scores</h1>
+            <ol id="savedscores"></ol>
+            <button class="tryagain">Try Again!</button>
+        </div>
     </main>
     <!-- GIVEN I am taking a code quiz
     WHEN I click the start button 

@@ -16,9 +16,13 @@
 var quizBox = document.getElementById("quiz");
 var highScores = document.querySelector(".highscores");
 var timer = document.querySelector(".timer");
-var startBtn =  document.querySelector(".start-btn");
+var startBtn = document.querySelector(".start-btn");
 var answerButton = document.querySelector(".answerButtons");
 var saveScore = document.querySelector(".saveScore");
+var submit = document.querySelector(`.submit`);
+var highScoreBox = document.querySelector(`.highScore`);
+var tryAgain = document.querySelector(`.tryagain`);
+var initials = document.getElementById('initials');
 var score = 0;
 var index = 0;
 var scores = [];
@@ -27,54 +31,101 @@ var timeInterval;
 var timeLeft;
 // Timer to start the countdown once the start button is hit
 function theTimer() {
-        timeInterval = setInterval(function () {
-            timeLeft--;
-            timer.textContent = "Time: " + timeLeft;
-            if (timeLeft <= 0 || index === theQuestions.length) {
-                clearInterval(timeInterval);
-                showScore();
-        } 
-    }, 1000); 
-  }
-  // creating the function to start the quiz
-  function startQuiz(){
+    timeInterval = setInterval(function () {
+        timeLeft--;
+        timer.textContent = "Time: " + timeLeft;
+        if (timeLeft <= 0 || index === theQuestions.length) {
+            clearInterval(timeInterval);
+            showScore();
+        }
+    }, 1000);
+}
+
+// creating the function to start the quiz
+function startQuiz() {
     timeLeft = 75;
     theTimer();
     questions();
-  };
+};
 
-  startBtn.addEventListener("click", startQuiz);
+startBtn.addEventListener("click", startQuiz);
+// This will show the players score once the final question is answered or the time reaches 0
+function showScore() {
+    quizBox.innerHTML = "<h1>Congratulations! Your Score was " + score + "</h1>";
+    if (answerButton.style.display !== `none`){
+        answerButton.style.display = `none`;
+    } 
+    if(saveScore.style.display !== `none`){
+        saveScore.style.display = `block`;
+    }
+    var savedInitials = initials.value.trim();
+    var userScore = {
+        score: score,
+        user: savedInitials
+    }
+    window.localStorage.setItem(`scores`, JSON.stringify(userScore));
 
-  function showScore(){
-        quizBox.innerHTML = "<h1> Your Score was " + score + "</h1>";
+    var allScores = JSON.parse(window.localStorage.getItem(`scores`))|| [];
+    console.log(allScores)
+    allScores.push(saved)
 
-  }  
-  // function to generate the questions and answers from the questions array
-  function questions() {
+    // for (var i = 0; i < allScores.length; i++){
+    //     var li = document.createElement("li")
+    //     li.textContent = allScores.user + ":" + allScores.score
+    //     document.getElementsById("savedscores").append(li)
+    //     console.log(li)
+    // }
+
+//    console.log(allScores)
+
+
+
+} 
+
+submit.addEventListener(`click`, function(event){
+    event.preventDefault();
+    quizBox.innerHTML = ``;
+    if(saveScore.style.display !== `none`){
+        saveScore.style.display = `none`;
+    }
+    if(highScoreBox.style.display !== `none`){
+        highScoreBox.style.display = `block`;
+    }
+    // showScore();
+})
+
+
+
+// function to generate the questions and answers from the questions array
+function questions() {
     quizBox.innerHTML = "<h1>" + theQuestions[index].question + "</h1>";
     for (var i = 0; i < theQuestions[index].options.length; i++) {
         document.querySelector(".option" + i).innerHTML = theQuestions[index].options[i];
+        document.querySelector(".option" + i).style.padding = `5px`;
     }
 };
 
-answerButton.addEventListener("click", function(event) {
+answerButton.addEventListener("click", function (event) {
     event.preventDefault();
     event.stopPropagation();
-    let correct = document.querySelector(".correct");
-    if (event.target.textContent == theQuestions[index].answer){
-    } else{
-        timeLeft = timeLeft - 10;
-    }
-    if (index < theQuestions.length -1){
-        index ++;
-        questions();
-    } else {
-        score = timeLeft;
+    if (event.target.matches(`button`)) {
+        if (event.target.textContent === theQuestions[index].answer) {
+        } else {
+            timeLeft = timeLeft - 10;
+        }
+        if (index < theQuestions.length - 1) {
+            index++;
+            questions();
+        } else {
+            score = timeLeft;
+            showScore();
+            clearInterval(timeInterval);
+        }
     }
 })
 
 
-  var theQuestions = [
+var theQuestions = [
     {
         question: "What does HTML stand for",
         options: [
